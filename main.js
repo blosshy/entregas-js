@@ -1,4 +1,3 @@
-
 /* SIMULADOR DE COMPRAS */
 
 /* Variables utilizadas como iniciadoras */
@@ -23,7 +22,7 @@ const iva = (x) => {
     return x * 0.21
 };
 
-function elegirColor(color){
+function elegirColor(color) {
     switch (color) {
         case "blanco":
             precio = 1800;
@@ -43,20 +42,20 @@ function elegirColor(color){
             precio = 0;
             cantidad = 0;
             break;
-}
+    }
 }
 
-function validarDatos (producto, cantidad){
-    if(producto == "" || isNaN(cantidad)){ //Validación de productos y cantidades validos
+function validarDatos(producto, cantidad) {
+    if (producto == "" || isNaN(cantidad)) { //Validación de productos y cantidades validos
         alert("Error, has ingresado algun dato incorrecto");
-        alert("Compra cancelada, vuelva a intentarlo."); 
+        alert("Compra cancelada, vuelva a intentarlo.");
     }
-} 
+}
 
 /* Ciclo do while con las opciones de compra */
 
 do {
-    
+
     producto = prompt("¡Bienvenido a Sanrio Store Argentina! ¿Deseas comprar buzos, remeras o pantalones?").toLowerCase();
     cantidad = Number(prompt("¿Cuantos queres comprar?"));
 
@@ -136,16 +135,16 @@ do {
             cantidad = 0;
             break;
     }
-    
+
     /* Validacion en caso de poner la cantidad o el producto incorrectamente*/
 
-    validarDatos(producto,cantidad);
+    validarDatos(producto, cantidad);
 
     /*  Variables que acumulan la cantidad y precio */
 
     cantidadTotal += cantidad;
     precioFinal += precio;
-    
+
     /* Confirm para seguir comprando o no */
 
     seguirComprando = confirm("¿Desea seguir comprando?")
@@ -157,23 +156,33 @@ alert("Usted ha comprado en total de :" + " " + cantidadTotal + " productos." + 
 
 /* Validacion para saber si posee un codigo de descuento o no */
 
-    let descuento = prompt("¿Tenes un codigo de descuento? si/no").toLowerCase();
+let descuento = prompt("¿Tenes un codigo de descuento? si/no").toLowerCase();
 if (descuento === "si") {
     let codigo = prompt("Ingresa el codigo:").toLowerCase();
     if (codigo === "coder2022") {
-        alert("!Felicitaciones! El valor de la compra ahora es de " + resta(suma(precioTotal(precioFinal, cantidad), iva(precioTotal(precioFinal, cantidad))),descuentoCodigo(precioTotal(precioFinal,cantidad))));
-    }else{
-        alert("El codigo ingresado es incorrecto");
-        confirm("¿Desea volver a intentar? si/no");
-        if (codigo === "coder2022") {
-            alert("El valor de la compra ahora es de " + resta(suma(precioTotal(precioFinal, cantidad), iva(precioTotal(precioFinal, cantidad))),descuentoCodigo(precioTotal(precioFinal,cantidad))));
+        alert("¡Felicitaciones! El valor de la compra ahora es de " + resta(suma(precioTotal(precioFinal, cantidad), iva(precioTotal(precioFinal, cantidad))), descuentoCodigo(precioTotal(precioFinal, cantidad))));
+    } else {
+        alert("El codigo ingresado es incorrecto.");
+        otroIntento = confirm("¿Desea volver a intentar? si/no");
+        while (otroIntento) {
+            let codigo = prompt("Ingresa el codigo:").toLowerCase();
+            if (codigo === "coder2022") {
+                alert("¡Felicitaciones! El valor de la compra ahora es de " + resta(suma(precioTotal(precioFinal, cantidad), iva(precioTotal(precioFinal, cantidad))), descuentoCodigo(precioTotal(precioFinal, cantidad))));
+                break;
+            } else {
+                alert("¡Lo sentimos! El codigo ingresado es incorrecto.")
+                let prueba = confirm("¿Desea volver a intentar? si/no")
+                if (!prueba) {
+                    break;
+                }
+            }
+        }
     }
-}
 }
 
 /* Terminar la compra */
 
-finalizarCompra = confirm("Para finalizar, ¿Desea finalizar la compra y recibir el recibo para abonarla?");
+finalizarCompra = confirm("Para finalizar, ¿Desea finalizar la compra y obtener el recibo para abonarla?");
 if (finalizarCompra == true) {
     alert("¡Muchas Gracias por comprar en Sanrio Store Argentina!" + "\n" + "Su compra ha sido realizada con éxito, en breve recibira un mail con el recibo de la misma.");
 } else {
