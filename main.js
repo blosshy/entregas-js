@@ -22,19 +22,19 @@ const iva = (x) => {
     return x * 0.21
 };
 
-function elegirColor(color) {
+function elegirColor(color,costo) {
     switch (color) {
         case "blanco":
-            precio = 1800;
+            precio = costo;
             break;
         case "negro":
-            precio = 1800;
+            precio = costo;
             break;
         case "gris":
-            precio = 1800;
+            precio = costo;
             break;
         case "rosa":
-            precio = 1800;
+            precio = costo;
             break;
         default:
             alert("Se ha ingresado un color incorrecto.")
@@ -65,15 +65,15 @@ do {
             switch (talle) {
                 case "S":
                     color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color);
+                    elegirColor(color,1800);
                     break;
                 case "M":
                     color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color);
+                    elegirColor(color,1800);
                     break;
                 case "L":
                     color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color);
+                    elegirColor(color,1800);
                     break;
                 default:
                     alert("Se ha ingresado un talle incorrecto.")
@@ -88,15 +88,15 @@ do {
             switch (talle) {
                 case "S":
                     color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color);
+                    elegirColor(color,1300);
                     break;
                 case "M":
                     color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color);
+                    elegirColor(color,1300);
                     break;
                 case "L":
                     color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color);
+                    elegirColor(color,1300);
                     break;
                 default:
                     alert("Se ha ingresado un talle incorrecto.")
@@ -111,15 +111,15 @@ do {
             switch (talle) {
                 case "S":
                     color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color);
+                    elegirColor(color,2000);
                     break;
                 case "M":
                     color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color);
+                    elegirColor(color,2000);
                     break;
                 case "L":
                     color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color);
+                    elegirColor(color,2000);
                     break;
                 default:
                     alert("Se ha ingresado un talle incorrecto.")
