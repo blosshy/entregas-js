@@ -2,19 +2,19 @@
 
 const productos = [{
         "id": 1,
-        "modelo": "Kuromi",
+        "modelo": "Buzo Kuromi",
         "precio": 1200,
         "cantidad": 1
     },
     {
         "id": 2,
-        "modelo": "Melody",
+        "modelo": "Buzo Melody",
         "precio": 1800,
         "cantidad": 1
     },
     {
         "id": 3,
-        "modelo": "Cinnamonroll",
+        "modelo": "Buzo Cinnamonroll",
         "precio": 1500,
         "cantidad": 1,
     }
@@ -34,6 +34,16 @@ function agregarProductosAlCarrito(id) {
         carrito.push(producto);
         console.log(carrito);
     }
+}
+
+/* FUNCION PARA MOSTRAR LISTA DE PRODUCTOS */
+function mostrarListaOrdenada(){
+    let array = [];
+    
+    for (i=0; i<carrito.length; i++){
+        array.push(carrito[i].modelo+" $"+carrito[i].precio+" c/u" +" ,"+carrito[i].cantidad+ " unidades en total.");
+    }
+    alert("Lista de productos seleccionados:"+"\n"+array.join("\n"))
 }
 
 /* SUMAR PRECIO TOTAL */
@@ -108,7 +118,9 @@ if (compra) {
     let cantidadFinal = cantidadTotal();
     let precioTotal = sumarTotal() + iva(sumarTotal());
 
-    alert("Tu compra es de un total de : " + precioTotal + "$. Por un total de " + cantidadFinal + " productos.")
+    mostrarListaOrdenada();
+
+    alert("El valor de tu compra es de un total de : " + precioTotal + "$. Por un total de " + cantidadFinal + " productos.")
     
     /*MEDIO DE PAGO */
     let otroIntento = true;
