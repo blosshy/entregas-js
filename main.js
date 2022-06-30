@@ -1,190 +1,148 @@
-/* SIMULADOR DE COMPRAS */
+/* ARRAY CON OBJETOS */
 
-/* Variables utilizadas como iniciadoras */
+const productos = [{
+        "id": 1,
+        "modelo": "Kuromi",
+        "precio": 1200,
+        "cantidad": 1
+    },
+    {
+        "id": 2,
+        "modelo": "Melody",
+        "precio": 1800,
+        "cantidad": 1
+    },
+    {
+        "id": 3,
+        "modelo": "Cinnamonroll",
+        "precio": 1500,
+        "cantidad": 1,
+    }
+];
 
-let cantidad = 0;
-let color = " ";
-let talle = " ";
-let precio = 0;
-let precioFinal = 0;
-let cantidadTotal = 0;
-let seguirComprando = false;
+/* FUNCIONES */
 
-/* Funciones */
+/* AGREGAR PRODUCTOS AL CARRITO */
+function agregarProductosAlCarrito(id) {
+    let producto = productos.find(producto => producto.id === id);
+    let productoEnCarrito = carrito.find(producto => producto.id === id);
 
-const precioTotal = (precio, cantidad) => precio * cantidad;
-const suma = (a, b) => a + b;
-const resta = (a, b) => a - b;
-const descuentoCodigo = (x) => {
-    return x * 0.2
-};
+    if (productoEnCarrito) {
+        productoEnCarrito.cantidad++;
+        console.log(carrito);
+    } else {
+        carrito.push(producto);
+        console.log(carrito);
+    }
+}
+
+/* SUMAR PRECIO TOTAL */
+function sumarTotal() {
+    let precioTotal = 0;
+    carrito.forEach(producto => {
+        precioTotal += producto.cantidad * producto.precio;
+    })
+    return precioTotal;
+}
+
+/* SUMAR CANTIDAD TOTAL */
+function cantidadTotal() {
+    let cantidadTotal = 0;
+    carrito.forEach(producto => {
+        cantidadTotal += producto.cantidad;
+    })
+    return cantidadTotal;
+}
+
+/* PRECIO CON IVA */
 const iva = (x) => {
     return x * 0.21
 };
 
-function elegirColor(color,costo) {
-    switch (color) {
-        case "blanco":
-            precio = costo;
-            break;
-        case "negro":
-            precio = costo;
-            break;
-        case "gris":
-            precio = costo;
-            break;
-        case "rosa":
-            precio = costo;
-            break;
-        default:
-            alert("Se ha ingresado un color incorrecto.")
-            color = " ";
-            precio = 0;
-            cantidad = 0;
-            break;
-    }
+/* SUMA */
+const suma = (a, b) => a + b;
+
+/* PRECIO EN CUOTAS */
+function precioEnCuotas(precio, cuotas) {
+    return precio / cuotas;
 }
 
-function validarDatos(producto, cantidad) {
-    if (producto == "" || isNaN(cantidad)) { //Validación de productos y cantidades validos
-        alert("Error, has ingresado algun dato incorrecto");
-        alert("Compra cancelada, vuelva a intentarlo.");
-    }
+/* PRECIO CON INTERES EN CUOTAS */
+function interes(precio) {
+    return precio * 0.2;
 }
 
-/* Ciclo do while con las opciones de compra */
+/* ARRAY VACIO PARA EL CARRITO */
 
-do {
+const carrito = [];
 
-    producto = prompt("¡Bienvenido a Sanrio Store Argentina! ¿Deseas comprar buzos, remeras o pantalones?").toLowerCase();
-    cantidad = Number(prompt("¿Cuantos queres comprar?"));
+let compra = confirm("¡Bienvenido a Sanrio Store Argentina! ¿Desea iniciar la compra?");
 
-    switch (producto) {
-        case "buzos":
-            talle = prompt("Seleccione un talle: S, M, o L").toUpperCase();
-            switch (talle) {
-                case "S":
-                    color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color,1800);
-                    break;
-                case "M":
-                    color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color,1800);
-                    break;
-                case "L":
-                    color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color,1800);
-                    break;
-                default:
-                    alert("Se ha ingresado un talle incorrecto.")
-                    talle = " ";
-                    precio = 0;
-                    cantidad = 0;
-                    break;
-            }
+/* BUCLE WHILE CON EL PROCESO DE COMPRA Y PUSH DE PRODUCTOS AL CARRITO */
+if (compra) {
+    let productosElegidos = " ";
+
+    while (productosElegidos != "no") {
+        productosElegidos = prompt(`
+
+                ¿Que productos deseas agregar al carrito?
+
+                Ingrese 1 para seleccionar el Buzo modelo: Kuromi.
+                Ingrese 2 para seleccionar el Buzo modelo: Melody.
+                Ingrese 3 para seleccionar el Buzo modelo: Cinnamonroll.
+
+                Para dejar de comprar ingresa "no".
+            `);
+
+        if (productosElegidos == "no") {
             break;
-        case "remeras":
-            talle = prompt("Seleccione un talle: S, M, o L").toUpperCase();
-            switch (talle) {
-                case "S":
-                    color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color,1300);
-                    break;
-                case "M":
-                    color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color,1300);
-                    break;
-                case "L":
-                    color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color,1300);
-                    break;
-                default:
-                    alert("Se ha ingresado un talle incorrecto.")
-                    talle = " ";
-                    precio = 0;
-                    cantidad = 0;
-                    break;
-            }
+        } else if (productosElegidos > 3) {
+            alert("El numero ingresado no corresponde con ninguno de nuestros productos :(");
+        } else if (productosElegidos == null) {
             break;
-        case "pantalones":
-            talle = prompt("Seleccione un talle: S, M, o L").toUpperCase();
-            switch (talle) {
-                case "S":
-                    color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color,2000);
-                    break;
-                case "M":
-                    color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color,2000);
-                    break;
-                case "L":
-                    color = prompt("Seleccione un color entre: blanco, negro, gris o rosa").toLowerCase();
-                    elegirColor(color,2000);
-                    break;
-                default:
-                    alert("Se ha ingresado un talle incorrecto.")
-                    talle = " ";
-                    precio = 0;
-                    cantidad = 0;
-                    break;
-            }
-            break;
-        default:
-            alert("Has seleccionado un producto incorrecto");
-            precio = 0;
-            cantidad = 0;
-            break;
+        }
+        agregarProductosAlCarrito(parseInt(productosElegidos));
     }
+    
+   /*  FUNCIONES DE PRECIO Y CANTIDAD TOTALES */
+    let cantidadFinal = cantidadTotal();
+    let precioTotal = sumarTotal() + iva(sumarTotal());
 
-    /* Validacion en caso de poner la cantidad o el producto incorrectamente*/
+    alert("Tu compra es de un total de : " + precioTotal + "$. Por un total de " + cantidadFinal + " productos.")
+    
+    /*MEDIO DE PAGO */
+    let otroIntento = true;
 
-    validarDatos(producto, cantidad);
+    while (otroIntento) {
+        let medioDePago = prompt(` 
+    Elija su metodo de pago:
 
-    /*  Variables que acumulan la cantidad y precio */
+    Seleccione A para pagar con tarjeta de credito.
 
-    cantidadTotal += cantidad;
-    precioFinal += precio;
+    Seleccione B para pagar con deposito bancario.
+    `).toUpperCase();
 
-    /* Confirm para seguir comprando o no */
-
-    seguirComprando = confirm("¿Desea seguir comprando?")
-} while (seguirComprando);
-
-/* Precio total con iva pero sin descuento */
-
-alert("Usted ha comprado en total de :" + " " + cantidadTotal + " productos." + " El valor de la compra es de " + suma(precioTotal(precioFinal, cantidad), iva(precioTotal(precioFinal, cantidad))));
-
-/* Validacion para saber si posee un codigo de descuento o no */
-
-let descuento = prompt("¿Tenes un codigo de descuento? si/no").toLowerCase();
-if (descuento === "si") {
-    let codigo = prompt("Ingresa el codigo:").toLowerCase();
-    if (codigo === "coder2022") {
-        alert("¡Felicitaciones! El valor de la compra ahora es de " + resta(suma(precioTotal(precioFinal, cantidad), iva(precioTotal(precioFinal, cantidad))), descuentoCodigo(precioTotal(precioFinal, cantidad))));
-    } else {
-        alert("El codigo ingresado es incorrecto.");
-        otroIntento = confirm("¿Desea volver a intentar? si/no");
-        while (otroIntento) {
-            let codigo = prompt("Ingresa el codigo:").toLowerCase();
-            if (codigo === "coder2022") {
-                alert("¡Felicitaciones! El valor de la compra ahora es de " + resta(suma(precioTotal(precioFinal, cantidad), iva(precioTotal(precioFinal, cantidad))), descuentoCodigo(precioTotal(precioFinal, cantidad))));
+        if (medioDePago == "A") {
+            let cuotas = Number(prompt(`
+        ¡Solo por hoy ofrecemos pagos de 6 a 12 cuotas!
+        ¿En cuantas cuotas desea abonarlo? 
+        Es importante recordar que las cuotas poseen un interes del 20%
+        `));
+            if ((cuotas == 6) || (cuotas == 12)){
+                alert("La compra se realizara en " + cuotas + " cuotas de " + suma(precioEnCuotas(precioTotal, cuotas), interes(precioEnCuotas(precioTotal, cuotas))) + "$");
+                alert("¡La compra ha sido realizada con exito! En breve le estara llegando el recibo de la compra por correo, una vez confirmado el pago nos comunicaremos para informarle sobre el envio. Muchas gracias por visitarnos :)");
                 break;
-            } else {
-                alert("¡Lo sentimos! El codigo ingresado es incorrecto.")
-                let prueba = confirm("¿Desea volver a intentar? si/no")
-                if (!prueba) {
-                    break;
-                }
+            } else{
+                alert("Has ingresado un valor incorrecto. Vuelve a intentarlo.")
             }
+        }else if (medioDePago == "B"){
+            alert("¡La compra ha sido realizada con exito! En breve le estara llegando el recibo de la compra por correo, una vez realizado el pago nos comunicaremos para informarle sobre el envio. Muchas gracias por visitarnos :)")
+            break;
+        }else{
+            alert("Por favor seleccione una opcion de pago valida.")
         }
     }
-}
 
-/* Terminar la compra */
-
-finalizarCompra = confirm("Para finalizar, ¿Desea finalizar la compra y obtener el recibo para abonarla?");
-if (finalizarCompra == true) {
-    alert("¡Muchas Gracias por comprar en Sanrio Store Argentina!" + "\n" + "Su compra ha sido realizada con éxito, en breve recibira un mail con el recibo de la misma.");
 } else {
-    alert("!Entendido! Esperamos volver a verle pronto :)");
+    alert("¡Esperamos volver a verlo pronto! :D");
 }
