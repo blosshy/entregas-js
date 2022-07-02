@@ -1,160 +1,82 @@
-/* ARRAY CON OBJETOS */
 
-const productos = [{
-        "id": 1,
-        "modelo": "Buzo Kuromi",
-        "precio": 1200,
-        "cantidad": 1
-    },
-    {
-        "id": 2,
-        "modelo": "Buzo Melody",
-        "precio": 1800,
-        "cantidad": 1
-    },
-    {
-        "id": 3,
-        "modelo": "Buzo Cinnamonroll",
-        "precio": 1500,
-        "cantidad": 1,
-    }
-];
+/* const preguntar = (palabra) =>{
+    let entrada = prompt("Por favor ingrese su " + palabra);
+    return entrada;
+}
 
-/* FUNCIONES */
+const personas = [ ];
 
-/* AGREGAR PRODUCTOS AL CARRITO */
-function agregarProductosAlCarrito(id) {
-    let producto = productos.find(producto => producto.id === id);
-    let productoEnCarrito = carrito.find(producto => producto.id === id);
-
-    if (productoEnCarrito) {
-        productoEnCarrito.cantidad++;
-        console.log(carrito);
-    } else {
-        carrito.push(producto);
-        console.log(carrito);
+class Persona{
+    constructor (nombre,edad,genero,mail){
+        this.nombre = nombre;
+        this.edad = edad;
+        this.genero = genero;
+        this.mail = mail
     }
 }
 
-/* FUNCION PARA MOSTRAR LISTA DE PRODUCTOS */
-function mostrarListaOrdenada(){
-    let array = [];
+let confirmacion = confirm("¿Desea registrar una persona nueva?");
+
+while (confirmacion) {
+    const personaNueva = new Persona(preguntar("nombre"),preguntar("edad"),preguntar("genero"),preguntar("mail"));
+
+    personas.push(personaNueva);
     
-    for (i=0; i<carrito.length; i++){
-        array.push(carrito[i].modelo+" $"+carrito[i].precio+" c/u" +" ,"+carrito[i].cantidad+ " unidades en total.");
+    let otroIntento = confirm("¿Desea registrar una persona nueva?");
+    if (!otroIntento) {
+        break;
     }
-    alert("Lista de productos seleccionados:"+"\n"+array.join("\n"))
 }
 
-/* SUMAR PRECIO TOTAL */
-function sumarTotal() {
-    let precioTotal = 0;
-    carrito.forEach(producto => {
-        precioTotal += producto.cantidad * producto.precio;
-    })
-    return precioTotal;
+for (const persona of personas) {
+    let contenedor = document.createElement("div");
+    contenedor.innerHTML = `
+                <h2>El nombre de la persona es ${persona.nombre}</h2>
+                <p>Su edad es de ${persona.edad}, su genero es ${persona.genero} y 
+                su correo electronico es ${persona.mail}</p>
+    `;
+    document.body.appendChild(contenedor);
 }
 
-/* SUMAR CANTIDAD TOTAL */
-function cantidadTotal() {
-    let cantidadTotal = 0;
-    carrito.forEach(producto => {
-        cantidadTotal += producto.cantidad;
-    })
-    return cantidadTotal;
+ */
+
+
+const preguntar = (palabra) =>{
+    let entrada = prompt("¡Estamos registrando datos para la Pokedex nacional! Por favor ingrese " + palabra);
+    return entrada;
 }
 
-/* PRECIO CON IVA */
-const iva = (x) => {
-    return x * 0.21
-};
+const pokemones = [ ];
 
-/* SUMA */
-const suma = (a, b) => a + b;
-
-/* PRECIO EN CUOTAS */
-function precioEnCuotas(precio, cuotas) {
-    return precio / cuotas;
-}
-
-/* PRECIO CON INTERES EN CUOTAS */
-function interes(precio) {
-    return precio * 0.2;
-}
-
-/* ARRAY VACIO PARA EL CARRITO */
-
-const carrito = [];
-
-let compra = confirm("¡Bienvenido a Sanrio Store Argentina! ¿Desea iniciar la compra?");
-
-/* BUCLE WHILE CON EL PROCESO DE COMPRA Y PUSH DE PRODUCTOS AL CARRITO */
-if (compra) {
-    let productosElegidos = " ";
-
-    while (productosElegidos != "no") {
-        productosElegidos = prompt(`
-
-                ¿Que productos deseas agregar al carrito?
-
-                Ingrese 1 para seleccionar el Buzo modelo: Kuromi.
-                Ingrese 2 para seleccionar el Buzo modelo: Melody.
-                Ingrese 3 para seleccionar el Buzo modelo: Cinnamonroll.
-
-                Para dejar de comprar ingresa "no".
-            `);
-
-        if (productosElegidos == "no") {
-            break;
-        } else if (productosElegidos > 3) {
-            alert("El numero ingresado no corresponde con ninguno de nuestros productos :(");
-        } else if (productosElegidos == null) {
-            break;
-        }
-        agregarProductosAlCarrito(parseInt(productosElegidos));
+class Pokemon{
+    constructor (nombre,tipo,region,evolucion){
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.region = region;
+        this.evolucion = evolucion
     }
+}
+
+let confirmacion = confirm("¿Desea registrar un Pokemon nuevo?");
+
+while (confirmacion) {
+    const pokemonNuevo = new Pokemon(preguntar("el nombre del Pokemon"),preguntar("el o los tipos del Pokemon"),preguntar("la region de procedencia del Pokemon"),preguntar("la cantidad de evoluciones que posee su Pokemon"));
+
+    pokemones.push(pokemonNuevo);
     
-   /*  FUNCIONES DE PRECIO Y CANTIDAD TOTALES */
-    let cantidadFinal = cantidadTotal();
-    let precioTotal = sumarTotal() + iva(sumarTotal());
-
-    mostrarListaOrdenada();
-
-    alert("El valor de tu compra es de un total de : " + precioTotal + "$. Por un total de " + cantidadFinal + " productos.")
-    
-    /*MEDIO DE PAGO */
-    let otroIntento = true;
-
-    while (otroIntento) {
-        let medioDePago = prompt(` 
-    Elija su metodo de pago:
-
-    Seleccione A para pagar con tarjeta de credito.
-
-    Seleccione B para pagar con deposito bancario.
-    `).toUpperCase();
-
-        if (medioDePago == "A") {
-            let cuotas = Number(prompt(`
-        ¡Solo por hoy ofrecemos pagos de 6 a 12 cuotas!
-        ¿En cuantas cuotas desea abonarlo? 
-        Es importante recordar que las cuotas poseen un interes del 20%
-        `));
-            if ((cuotas == 6) || (cuotas == 12)){
-                alert("La compra se realizara en " + cuotas + " cuotas de " + suma(precioEnCuotas(precioTotal, cuotas), interes(precioEnCuotas(precioTotal, cuotas))) + "$");
-                alert("¡La compra ha sido realizada con exito! En breve le estara llegando el recibo de la compra por correo, una vez confirmado el pago nos comunicaremos para informarle sobre el envio. Muchas gracias por visitarnos :)");
-                break;
-            } else{
-                alert("Has ingresado un valor incorrecto. Vuelve a intentarlo.")
-            }
-        }else if (medioDePago == "B"){
-            alert("¡La compra ha sido realizada con exito! En breve le estara llegando el recibo de la compra por correo, una vez realizado el pago nos comunicaremos para informarle sobre el envio. Muchas gracias por visitarnos :)")
-            break;
-        }else{
-            alert("Por favor seleccione una opcion de pago valida.")
-        }
+    let otroIntento = confirm("¿Desea registrar otro Pokemon?");
+    if (!otroIntento) {
+        break;
     }
-
-} else {
-    alert("¡Esperamos volver a verlo pronto! :D");
 }
+
+for (const pokemon of pokemones) {
+    let contenedor = document.createElement("div");
+    contenedor.innerHTML = `
+                <h1 class="titulo">Has registrado al Pokemon llamado: ${pokemon.nombre}</h1>
+                <p class="info">Su/s tipo/s es/son: ${pokemon.tipo} y se lo encuentra principalmente en ${pokemon.region}.</p>
+                <p class="info">Por ultimo, este Pokemon posee un total de ${pokemon.evolucion} evoluciones.
+    `;
+    document.body.appendChild(contenedor);
+}
+
